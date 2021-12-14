@@ -13,3 +13,16 @@ The repository includes several models:
 model1.m and model2.m provide input/output as matlab functions.
 
 simulink_exexecution provides a graphical example with two different inputs.
+
+HOW TO USE
+
+1. Open the simulink_execution model, and execute it.
+2. Run one of the matlab versions
+
+    simulateModel1('input5.txt','output5_1.txt')
+    simulateModel2('input5.txt','output5_2.txt')
+and then visualize the difference
+    animateCar('output5_1.txt','output5_2.txt')
+
+3. Generate your own inputs, using the format defined in generateInputs.m
+
