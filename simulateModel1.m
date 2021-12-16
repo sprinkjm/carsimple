@@ -1,4 +1,4 @@
-function [state,inputs] = simulateModel1(inputFile,outputFile)
+function [state,input] = simulateModel1(inputFile,outputFile)
 
 % Simulates using Model 1, which is a complex dynamical model
 
@@ -42,6 +42,7 @@ dt = diff(time);
 u1 = u1_dubins;
 % convert from tire angles to tire rates
 u2 = [0; diff(u2_dubins)./dt];
+input=[time u1 u2];
 
 state = [];
 % states are represented by:

@@ -1,4 +1,4 @@
-function [state,inputs] = simulateModel2(inputFile,outputFile)
+function [state,input] = simulateModel2(inputFile,outputFile)
 
 % Simulates using Model 2, which is a simple kinematics model
 
@@ -24,6 +24,7 @@ inputs = textscan(id,'%n,%n,%n');
 time = inputs{1};
 u1 = inputs{2}; % velocity
 u2 = inputs{3}; % tire angle
+input=[time u1 u2];
 
 state = [];
 % outputs are represented by:
@@ -43,17 +44,17 @@ for k=2:length(time)
     y = state(k-1,3);
     theta=state(k-1,5);
     delta=state(k-1,4);
-    deltaT=deltaTvector(k);
+    dT=deltaTvector(k);
     % the value is already multiplied by deltaT inside
     v = u1(k);
     delta = u2(k);
-    [xdot,ydot,thetadot] = model2(theta,v,delta,deltaT);
+    [xdot,ydot,thetadot] = model2(theta,v,delta);
     % time, x, y, tire(delta), heading(theta)
     state_k(1) = t;
-    state_k(2) = state_k(2) + xdot;
-    state_k(3) = state_k(3) + ydot;
-    state_k(4) = delta;
-    state_k(5) = state_k(5) + thetadot;
+    state_k(2) = state_k(2) + dT*xdot;
+    state_k(3) = state_k(3) + dT*ydot;
+    state_k(4) = dT*delta;
+    state_k(5) = state_k(5) + dT*thetadot;
     state = [state; state_k];
 end
 
